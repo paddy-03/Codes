@@ -1,0 +1,58 @@
+Code in C++
+
+#include<bits/stdc++.h>
+using namespace std;
+#define max 100000
+
+int visit[max];
+vector <int> adj[max];
+int c;
+
+void dfs(int s)
+{
+    visit[s]=1;
+    c++;
+    int i;
+    for (int i=0;i<adj[s].size();i++)
+    {
+        if(visit[adj[s][i]]==0)
+        {
+            dfs(adj[s][i]);
+        }
+    }
+}
+
+
+int main()
+    
+{
+    int e,n,i,x,y;
+    cin>>n>>e;
+    for(i=0;i<e;i++)
+    {
+        cin>>x>>y;
+        adj[x].push_back(y);
+        adj[y].push_back(x);
+        
+    }
+    int a[n];
+    int k=0;
+    for(i=0;i<n;i++)
+    {
+        if(visit[i]==0)
+        {
+            dfs(i);
+            a[k++]=c;
+           // cout<<c<<" ";
+            c=0;
+        }
+    }
+    long long sum=0,result=0;
+    for(i=0;i<k;i++)
+    {
+        result+=a[i]*sum;
+        sum+=a[i];
+    }
+    cout<<result;
+    
+}
